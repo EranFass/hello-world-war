@@ -9,7 +9,7 @@ pollSCM('* * * * *')
   stages {
     stage('Checkout Code') {
       steps {
-        git(url: 'https://github.com/segevb/hello-world-war.git', branch: 'dev', changelog: true)
+        git(url: 'https://github.com/EranFass/hello-world-war.git', branch: 'dev', changelog: true)
       }
     }
 
@@ -22,7 +22,7 @@ mvn clean package'''
 
     stage('Sonarcloud - code analysis') {
       steps {
-        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=segevb_hello-world-war'
+        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=EranFass_hello-world-war'
       }
     }
 
