@@ -1,11 +1,5 @@
 pipeline {
   agent any
-  
-  triggers {
-	//Query repository every minute
-pollSCM('* * * * *')
-}
-  
   stages {
     stage('Checkout Code') {
       steps {
@@ -22,7 +16,8 @@ mvn clean package'''
 
     stage('Sonarcloud - code analysis') {
       steps {
-        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=EranFass_hello-world-war'
+        sh '''mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=EranFass_hello-world-war -Dsonar.login=270f3901694e27e2cccb785dc776353957772e94
+'''
       }
     }
 
@@ -39,18 +34,22 @@ mvn clean package'''
               docker push 127.0.0.1:8123/repository/docker-hosted/hello-world:$BUILD_ID
               '''
         }
+
       }
     }
+
   }
-	
   post {
     success {
       slackSend(message: "Build deployed successfully - ${env.JOB_NAME} #${env.BUILD_NUMBER} - (${env.BUILD_URL}) ", channel: 'my_notifier', color: '#00FF00')
     }
-	  
+
     failure {
       slackSend(message: " Build failed - ${env.JOB_NAME} #${env.BUILD_NUMBER} - (${env.BUILD_URL}) ", channel: 'my_notifier', color: '#FF0000')
     }
 
+  }
+  triggers {
+    pollSCM('* * * * *')
   }
 }
