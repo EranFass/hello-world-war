@@ -16,7 +16,7 @@ mvn clean package'''
 
     stage('Sonarcloud - code analysis') {
       steps {
-        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=EranFass_hello-world-war -Dsonar.login=3189f1ad3cffb69f1a56ca0339119df1086cce26'
+        sh 'echo mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=EranFass_hello-world-war -Dsonar.login=3189f1ad3cffb69f1a56ca0339119df1086cce26'
       }
     }
 
