@@ -8,9 +8,8 @@
 	<name>Hello World Web Application Repository</name>
 	<description>Simplest possible Java Webapp</description>
         <properties>
- 	        <sonar.organization>segevb</sonar.organization>
-  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-                <sonar.login>12c72e5f3735c64f77422855ece2a9f3f556ca97</sonar.login>
+          <sonar.organization>eranfass</sonar.organization>
+          <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         </properties>
 	<build>
 		<plugins>
