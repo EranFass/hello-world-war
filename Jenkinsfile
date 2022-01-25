@@ -27,18 +27,16 @@ docker build -t hello-world:$BUILD_ID .'''
       }
     }
 
-    stage('Push docker image to Nexus') {
+    stage('push nexus') {
       steps {
-        withDockerRegistry(credentialsId: 'nexsus', url: 'http://127.0.0.1:8123/repository/docker-hosted/') {
-          sh '''docker tag hello-world:$BUILD_ID 127.0.0.1:8123/repository/docker-hosted/hello-world:$BUILD_ID
-              docker push 127.0.0.1:8123/repository/docker-hosted/hello-world:$BUILD_ID
-              '''
+        withDockerRegistry(credentialsId: 'nexus-cred', url: 'http://127.0.0.1:8123/repository/local-docker/') {
+          sh '''docker tag helloworld:$BUILD_ID 127.0.0.1:8123/repository/local-docker/helloworld:$BUILD_ID
+        docker push 127.0.0.1:8123/repository/local-docker/helloworld:$BUILD_ID '''
         }
 
       }
     }
 
-  }
   post {
     success {
       slackSend(message: "Build deployed successfully - ${env.JOB_NAME} #${env.BUILD_NUMBER} - (${env.BUILD_URL}) ", channel: 'int-project', color: '#008000')
